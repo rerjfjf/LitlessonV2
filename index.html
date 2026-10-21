@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Старший сын: открытый урок по пьесе Александра Вампилова</title>
+<meta name="description" content="Интерактивный открытый урок литературы по пьесе Александра Вампилова «Старший сын»: задания, викторина, дебаты, синквейн.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Marck+Script&family=Unbounded:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<!-- ============ МАРШРУТ (шапка) ============ -->
+<header class="route" id="route">
+  <a class="route__brand" href="#start">Старший сын</a>
+  <nav class="route__nav" aria-label="Станции урока">
+    <a href="#start" data-st="start">Старт</a>
+    <a href="#plan" data-st="plan">Маршрут</a>
+    <a href="#enter" data-st="enter">Вход</a>
+    <a href="#author" data-st="author">Автор</a>
+    <a href="#heroes" data-st="heroes">Герои</a>
+    <a href="#plot" data-st="plot">Сюжет</a>
+    <a href="#who" data-st="who">Кто есть кто</a>
+    <a href="#roles" data-st="roles">Роли</a>
+    <a href="#film" data-st="film">Кино</a>
+    <a href="#quiz" data-st="quiz">Викторина</a>
+    <a href="#debate" data-st="debate">Дебаты</a>
+    <a href="#cinquain" data-st="cinquain">Синквейн</a>
+    <a href="#finale" data-st="finale">Финал</a>
+  </nav>
+  <div class="route__tools">
+    <button class="tool" id="btnSound" type="button" aria-pressed="true" title="Звук (M)">Звук</button>
+    <button class="tool" id="btnNotes" type="button" aria-pressed="false" title="Заметки преподавателя (T)">Заметки</button>
+    <button class="tool" id="btnPresent" type="button" aria-pressed="false" title="Режим проектора (P)">Проектор</button>
+  </div>
+  <div class="route__progress" aria-hidden="true"><i id="routeFill"></i><b id="routeTrain">🚃</b></div>
+</header>
+
+<main>
+
+<!-- ============ СТАРТ ============ -->
+<section class="hero" id="start">
+  <div class="hero__sky" aria-hidden="true">
+    <svg id="scene" viewBox="0 0 1600 720" preserveAspectRatio="xMidYMax slice">
+      <defs>
+        <radialGradient id="moonGlow"><stop offset="0" stop-color="#FFF3C9" stop-opacity=".9"/><stop offset="1" stop-color="#FFF3C9" stop-opacity="0"/></radialGradient>
+        <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD27A" stop-opacity=".55"/><stop offset="1" stop-color="#FFD27A" stop-opacity="0"/></linearGradient>
+      </defs>
+      <g id="stars"></g>
+      <circle cx="1330" cy="200" r="130" fill="url(#moonGlow)"/>
+      <circle cx="1330" cy="200" r="42" fill="#FFF3C9"/>
+      <circle cx="1345" cy="189" r="42" fill="#2A1E6E" opacity=".28"/>
+      <g id="town"></g>
+      <!-- дом с горящим окном -->
+      <g id="knockHouse">
+        <rect x="1060" y="360" width="230" height="230" fill="#3B2A86"/>
+        <polygon points="1040,362 1175,290 1310,362" fill="#2A1E6E"/>
+        <rect x="1100" y="470" width="46" height="120" rx="4" fill="#20175A"/>
+        <g id="knockWin" tabindex="0" role="button" aria-label="Постучать в окно" style="cursor:pointer">
+          <rect x="1170" y="410" width="90" height="120" rx="45" ry="45" fill="#FFB02E"/>
+          <rect x="1170" y="410" width="90" height="120" rx="45" ry="45" fill="url(#beam)" opacity=".0"/>
+          <line x1="1215" y1="410" x2="1215" y2="530" stroke="#8A4B00" stroke-width="4"/>
+          <line x1="1170" y1="468" x2="1260" y2="468" stroke="#8A4B00" stroke-width="4"/>
+          <circle id="knockRing" cx="1215" cy="470" r="62" fill="none" stroke="#FFD27A" stroke-width="3"/>
+        </g>
+        <polygon points="1170,530 1260,530 1330,720 1100,720" fill="url(#beam)"/>
+      </g>
+      <rect x="0" y="590" width="1600" height="130" fill="#14103F"/>
+      <rect x="0" y="606" width="1600" height="5" fill="#6C5BC2"/>
+      <rect x="0" y="626" width="1600" height="5" fill="#6C5BC2"/>
+      <g id="sleepers"></g>
+      <g id="train">
+        <g id="car0"></g><g id="car1"></g><g id="car2"></g><g id="car3"></g>
+      </g>
+    </svg>
+    <div class="hero__bubble" id="bubble" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="wrap hero__content">
+    <p class="hero__kicker">Открытый урок литературы по пьесе Александра Вампилова</p>
+    <h1 class="hero__title" id="heroTitle" aria-label="Старший сын">
+      <span class="w" aria-hidden="true">Старший</span>
+      <span class="w" aria-hidden="true">сын</span>
+    </h1>
+    <p class="hero__sub">Две случайные фигуры на ночной платформе, одна выдуманная семья и вопрос, который не решается за один вечер: что делает человека сыном и братом?</p>
+    <dl class="meta">
+      <div><dt>Преподаватель</dt><dd contenteditable="true" spellcheck="false" data-key="teacher">Фамилия Имя Отчество</dd></div>
+      <div><dt>Курс и группа</dt><dd contenteditable="true" spellcheck="false" data-key="group">1 курс, группа ___</dd></div>
+      <div><dt>Дата</dt><dd contenteditable="true" spellcheck="false" data-key="date">__ __________ 2026</dd></div>
+    </dl>
+    <div class="hero__actions">
+      <button class="btn btn--amber" id="knockBtn" type="button">Постучать в дверь</button>
+      <a class="btn btn--ghost" href="#plan">Посмотреть маршрут урока</a>
+    </div>
+    <p class="hero__hint">Можно постучать и в светящееся окно. Строки преподавателя, курса и группы и даты редактируются щелчком.</p>
+  </div>
+</section>
+
+<!-- ============ МАРШРУТ УРОКА ============ -->
+<section class="sec sec--plan" id="plan">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Маршрут пары: от платформы до чужого дома</h2>
+      <span class="time">90 минут (одна пара)</span>
+    </div>
+    <p class="lead">Одиннадцать остановок. На каждой есть задание, которое класс решает вместе или по командам. Нажмите на билет, и страница перенесёт вас к нужному заданию.</p>
+
+    <ol class="tickets">
+      <li style="--c:#FFB02E"><a href="#enter"><b>7 мин</b><span class="t">Вход</span><span class="d">Опоздали на электричку: куда стучаться? Облако слов к слову «дом».</span></a></li>
+      <li style="--c:#7C63F0"><a href="#author"><b>8 мин</b><span class="t">Автор</span><span class="d">Лента жизни Вампилова и тайна первого названия пьесы.</span></a></li>
+      <li style="--c:#2FD3A3"><a href="#heroes"><b>8 мин</b><span class="t">Герои</span><span class="d">Карточки-окна и вещи-символы пьесы.</span></a></li>
+      <li style="--c:#F2503B"><a href="#plot"><b>8 мин</b><span class="t">Сюжет</span><span class="d">Расставить события по порядку, пока поезд не ушёл.</span></a></li>
+      <li style="--c:#FF7EB6"><a href="#who"><b>6 мин</b><span class="t">Кто есть кто</span><span class="d">Распределить черты между Бусыгиным, Сильвой и Сарафановым.</span></a></li>
+      <li style="--c:#FFB02E"><a href="#roles"><b>10 мин</b><span class="t">Чтение по ролям</span><span class="d">Жребий ролей, сцена по тексту, оценка подтекста.</span></a></li>
+      <li style="--c:#2FD3A3"><a href="#film"><b>10 мин</b><span class="t">Пьеса и фильм</span><span class="d">Сравнить текст с фильмом 1976 года и проголосовать по пунктам.</span></a></li>
+      <li style="--c:#38BDF8"><a href="#quiz"><b>8 мин</b><span class="t">Викторина</span><span class="d">Две команды, девять вопросов, таймер.</span></a></li>
+      <li style="--c:#FFB02E"><a href="#debate"><b>13 мин</b><span class="t">Дебаты</span><span class="d">Бусыгин: самозванец или тот, кто спас дом?</span></a></li>
+      <li style="--c:#7C63F0"><a href="#cinquain"><b>7 мин</b><span class="t">Синквейн</span><span class="d">Пять строк о герое и открытка на память.</span></a></li>
+      <li style="--c:#2FD3A3"><a href="#finale"><b>5 мин</b><span class="t">Финал</span><span class="d">Зажечь окна и выбрать домашнее задание.</span></a></li>
+    </ol>
+
+    <div class="goals">
+      <h3>К концу урока вы сможете</h3>
+      <ul>
+        <li>рассказать, как Вампилов построил конфликт на обмане и почему обман оказывается началом близости;</li>
+        <li>отличить героев друг от друга по поступкам, а не по репликам;</li>
+        <li>аргументированно отстоять свою позицию в споре о Бусыгине.</li>
+      </ul>
+    </div>
+    <aside class="tnote"><b>Для преподавателя.</b> Если времени мало, пропустите «Кто есть кто» или сократите викторину до шести вопросов. Таймер внизу справа работает на любой остановке.</aside>
+  </div>
+</section>
+
+<!-- ============ ВХОД ============ -->
+<section class="sec sec--enter" id="enter">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Вход: вы опоздали на последнюю электричку</h2>
+      <span class="time">7 мин</span>
+    </div>
+    <div class="split">
+      <div>
+        <p class="lead">Платформа пуста, до утра далеко, в кармане ни копейки. Что вы сделаете? Класс голосует, преподаватель нажимает на вариант за каждую поднятую руку.</p>
+        <div class="poll" id="poll" role="group" aria-label="Голосование"></div>
+        <p class="poll__msg" id="pollMsg">Выберите вариант, чтобы увидеть, что думает класс.</p>
+        <button class="btn btn--small" id="pollReset" type="button">Обнулить голоса</button>
+      </div>
+      <figure class="frame frame--door">
+        <img src="images/Door1.png" alt="Дверь чужой квартиры ночью" loading="lazy">
+        <figcaption>Дверь, в которую стучатся ночью, и есть начало пьесы.</figcaption>
+      </figure>
+    </div>
+
+    <div class="cloudbox">
+      <h3>Слово «дом»: какие у вас ассоциации?</h3>
+      <form id="cloudForm" class="cloudform" autocomplete="off">
+        <label class="sr" for="cloudInput">Ваше слово</label>
+        <input id="cloudInput" maxlength="22" placeholder="Напишите слово и нажмите Enter">
+        <button class="btn btn--ink" type="submit">Добавить</button>
+        <button class="btn btn--small" id="cloudClear" type="button">Очистить</button>
+      </form>
+      <div class="cloud" id="cloud" aria-live="polite"></div>
+    </div>
+    <aside class="tnote"><b>Для преподавателя.</b> После облака спросите: какие из этих слов подошли бы дому Сарафановых? Какие слова из облака Бусыгин услышит в этом доме впервые?</aside>
+  </div>
+</section>
+
+<!-- ============ АВТОР ============ -->
+<section class="sec sec--author" id="author">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Автор: тридцать четыре года и четыре большие пьесы</h2>
+      <span class="time">8 мин</span>
+    </div>
+    <div class="author">
+      <figure class="arch">
+        <img src="images/Vampilov1.png" alt="Александр Вампилов" loading="lazy">
+        <figcaption>Александр Валентинович Вампилов, 1937–1972</figcaption>
+      </figure>
+      <div class="author__text">
+        <p class="lead">Вампилов родился в сибирском посёлке Кутулик и погиб на Байкале за два дня до тридцати пяти лет. Его пьесы почти не ставили при жизни, а после смерти они вошли в репертуар театров всей страны.</p>
+        <div class="secret">
+          <p>Как пьеса называлась сначала?</p>
+          <button class="btn btn--amber" id="secretBtn" type="button" aria-expanded="false" aria-controls="secretAns">Открыть первое название</button>
+          <div class="secret__ans" id="secretAns" hidden>
+            <strong>«Предместье»</strong>
+            <span>Работа шла с 1965 по 1967 год. Отдельной книгой пьеса вышла в 1970 году уже под названием «Старший сын».</span>
+          </div>
+          <p class="secret__q" id="secretQ" hidden>Вопрос классу: что менялось в акценте, когда вместо места (предместье) в названии появился человек (старший сын)?</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="tl__title">Лента времени. Нажмите на карточку, чтобы получить вопрос классу</h3>
+    <div class="tl" id="timeline" tabindex="0" aria-label="Лента времени, прокручивается вбок"></div>
+    <aside class="tnote"><b>Для преподавателя.</b> Назначьте по одной карточке каждому ряду. Через минуту ряд зачитывает вопрос и первый ответ.</aside>
+  </div>
+</section>
+
+<!-- ============ ГЕРОИ ============ -->
+<section class="sec sec--heroes" id="heroes">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Герои: пять окон в одном доме</h2>
+      <span class="time">8 мин</span>
+    </div>
+    <p class="lead">Нажмите на окно, чтобы повернуть карточку. На обороте есть вопрос, который стоит обсудить с соседом по парте.</p>
+    <div class="windows" id="cards"></div>
+
+    <h3 class="sub">Вещи-символы</h3>
+    <p class="lead lead--s">Что в пьесе значат эти четыре вещи? Предложите версию, а потом нажмите на фото.</p>
+    <div class="things" id="things"></div>
+    <aside class="tnote"><b>Для преподавателя.</b> Карточки героев подходят для работы в группах: каждая группа получает одного героя и ищет три поступка, которые его характеризуют.</aside>
+  </div>
+</section>
+
+<!-- ============ СЮЖЕТ ============ -->
+<section class="sec sec--plot" id="plot">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Сюжет: расставьте события по порядку</h2>
+      <span class="time">8 мин</span>
+    </div>
+    <p class="lead">Перетаскивайте события или двигайте их стрелками. Когда порядок верный, электричка дойдёт до последней станции.</p>
+    <ol class="sortlist" id="sortlist"></ol>
+    <div class="plot__bar">
+      <button class="btn btn--amber" id="plotCheck" type="button">Проверить порядок</button>
+      <button class="btn btn--ghost-light" id="plotShuffle" type="button">Перемешать заново</button>
+      <p class="plot__msg" id="plotMsg" role="status" aria-live="polite"></p>
+    </div>
+    <div class="track" id="track" aria-hidden="true">
+      <div class="track__line"></div>
+      <div class="track__stops"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="track__train" id="trackTrain">🚆</div>
+    </div>
+
+    <h3 class="sub sub--light">Как это увидели театр и кино</h3>
+    <div class="gallery">
+      <figure><img src="images/Film1.png" alt="Кадр из фильма 1976 года" loading="lazy"><figcaption>Телефильм Виталия Мельникова, 1976</figcaption></figure>
+      <figure><img src="images/Film2.png" alt="Бусыгин и Сильва у двери" loading="lazy"><figcaption>Бусыгин и Сильва у чужой двери</figcaption></figure>
+      <figure><img src="images/Theatre1.png" alt="Сцена из спектакля" loading="lazy"><figcaption>Театральные постановки идут до сих пор</figcaption></figure>
+    </div>
+    <aside class="tnote"><b>Для преподавателя.</b> Спросите: какое событие в этой цепочке главное? После какого события пьеса перестаёт быть анекдотом?</aside>
+  </div>
+</section>
+
+<!-- ============ КТО ЕСТЬ КТО ============ -->
+<section class="sec sec--who" id="who">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Кто есть кто: распределите черты</h2>
+      <span class="time">6 мин</span>
+    </div>
+    <p class="lead">Выберите карточку, потом нажмите на героя. Или перетащите карточку к нужному имени. Каждая ошибка попадает в счётчик, но верный ответ можно найти с любой попытки.</p>
+    <div class="who__top">
+      <div class="chips" id="chips" aria-label="Карточки с чертами"></div>
+      <p class="who__score" id="whoScore">Ошибок: 0</p>
+    </div>
+    <div class="buckets" id="buckets"></div>
+    <p class="who__msg" id="whoMsg" role="status" aria-live="polite"></p>
+    <aside class="tnote"><b>Для преподавателя.</b> Попросите класс найти карточку, которая подходит двоим сразу. Она подскажет, чем Бусыгин и Сильва похожи и где расходятся.</aside>
+  </div>
+</section>
+
+<!-- ============ ЧТЕНИЕ ПО РОЛЯМ ============ -->
+<section class="sec sec--roles" id="roles">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Чтение по ролям: сцена оживает</h2>
+      <span class="time">10 мин</span>
+    </div>
+    <p class="lead">Выберите эпизод, впишите студентов и распределите роли жребием. Читать нужно по тексту пьесы вашего издания. Задача чтецов не просто произнести реплики, а сыграть подтекст.</p>
+    <div class="eptabs" id="epTabs" role="tablist" aria-label="Эпизоды для чтения"></div>
+    <div class="ep" id="epBox" aria-live="polite"></div>
+
+    <div class="castwrap">
+      <div class="castform">
+        <label for="names">Студенты, по одному имени в строке</label>
+        <textarea id="names" rows="7" placeholder="Иванов Иван&#10;Петрова Анна&#10;Сидоров Павел"></textarea>
+        <button class="btn btn--ink" id="castBtn" type="button">Распределить роли жребием</button>
+        <p class="castform__hint" id="castHint" role="status" aria-live="polite"></p>
+      </div>
+      <div>
+        <ul class="castlist" id="castList"></ul>
+        <div class="obs" id="obsBox"></div>
+      </div>
+    </div>
+
+    <div class="reading">
+      <div class="rtimer">
+        <h3>Чтение</h3>
+        <output id="rtOut">03:00</output>
+        <div class="rtimer__btns">
+          <button class="btn btn--amber btn--small" id="rtStart" type="button">Начать чтение</button>
+          <button class="btn btn--small" id="rtReset" type="button">Сбросить</button>
+        </div>
+      </div>
+      <div class="rubric">
+        <h3>Оценка наблюдателей</h3>
+        <div id="rubric"></div>
+        <div class="rubric__sum"><div class="rubric__bar"><i id="rubBar"></i></div><p id="rubMsg" role="status" aria-live="polite">Поставьте оценки после чтения.</p></div>
+        <button class="btn btn--small" id="rubReset" type="button">Новая оценка</button>
+      </div>
+    </div>
+    <aside class="tnote"><b>Для преподавателя.</b> Не раздавайте реплики заранее: чтецы получают текст на старте. После чтения сначала слово наблюдателям, потом исполнителям. Для первокурсников хорошо работает правило: каждый называет одну находку, а не оценку.</aside>
+  </div>
+</section>
+
+<!-- ============ ПЬЕСА И ФИЛЬМ ============ -->
+<section class="sec sec--film" id="film">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Пьеса и фильм: что изменил режиссёр</h2>
+      <span class="time">10 мин</span>
+    </div>
+    <p class="lead">Посмотрите фрагмент телефильма Виталия Мельникова (1976) и сравните его с текстом. По каждому пункту группа голосует: нажмите на вариант за каждую поднятую руку.</p>
+    <div class="film__top">
+      <figure class="vid">
+        <video id="filmVideo" controls preload="none" playsinline poster="images/Film1.png"><source id="filmSrc" src="video/fragment.mp4" type="video/mp4"></video>
+        <figcaption id="vidNote">Положите фрагмент фильма в папку video под именем fragment.mp4, и он включится здесь.</figcaption>
+      </figure>
+      <figure class="cmp" id="cmp" style="--p:50%">
+        <div class="cmp__stage">
+          <img class="cmp__base" src="images/Theatre1.png" alt="Сцена из спектакля" loading="lazy">
+          <img class="cmp__top" src="images/Film1.png" alt="Кадр из фильма" loading="lazy">
+          <span class="cmp__line" aria-hidden="true"></span>
+          <span class="cmp__tag cmp__tag--l">Кино</span><span class="cmp__tag cmp__tag--r">Театр</span>
+        </div>
+        <label class="sr" for="cmpRange">Ползунок сравнения кино и театра</label>
+        <input id="cmpRange" type="range" min="0" max="100" value="50">
+        <figcaption>Двигайте ползунок. Что меняется в свете, пространстве и лицах?</figcaption>
+      </figure>
+    </div>
+
+    <h3 class="sub">Сравнение по пунктам</h3>
+    <div class="matrix" id="matrix"></div>
+    <p class="matrix__sum" id="matrixSum" role="status" aria-live="polite">Голосов пока нет.</p>
+
+    <div class="fnotes">
+      <label>Одно решение режиссёра, которое вам понравилось, и почему
+        <textarea id="fNote1" rows="3" placeholder="Например: сцена признания снята крупным планом, потому что…"></textarea></label>
+      <label>Одно решение, с которым вы готовы спорить
+        <textarea id="fNote2" rows="3" placeholder="Например: в фильме не хватает…"></textarea></label>
+    </div>
+    <aside class="tnote"><b>Для преподавателя.</b> Если фрагмента нет, используйте кадры из папки images и сравнение с театром. Итоговый вопрос: можно ли считать экранизацию «неверной», если она не совпала с вашим представлением о героях?</aside>
+  </div>
+</section>
+
+<!-- ============ ВИКТОРИНА ============ -->
+<section class="sec sec--quiz" id="quiz">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Викторина: «Бусыгины» против «Сарафановых»</h2>
+      <span class="time">8 мин</span>
+    </div>
+    <div class="quiz" id="quiz-box">
+      <div class="quiz__score">
+        <div class="team team--a" id="teamA"><span>Бусыгины</span><b id="scoreA">0</b></div>
+        <div class="quiz__mid">
+          <span id="qCount">Вопрос 1 из 9</span>
+          <label class="check"><input type="checkbox" id="timerOn" checked> Таймер 20 секунд</label>
+        </div>
+        <div class="team team--b" id="teamB"><span>Сарафановы</span><b id="scoreB">0</b></div>
+      </div>
+      <div class="quiz__timer" aria-hidden="true"><i id="qBar"></i></div>
+      <p class="quiz__turn" id="qTurn"></p>
+      <h3 class="quiz__q" id="qText"></h3>
+      <div class="quiz__opts" id="qOpts"></div>
+      <div class="quiz__fb" id="qFb" role="status" aria-live="polite"></div>
+      <div class="quiz__nav"><button class="btn btn--amber" id="qNext" type="button" hidden>Дальше</button></div>
+    </div>
+    <aside class="tnote"><b>Для преподавателя.</b> Вопросы чередуются между командами. Отвечает один человек, остальные могут подсказывать шёпотом. Если команда не успела, ход переходит к соперникам без очков.</aside>
+  </div>
+</section>
+
+<!-- ============ ДЕБАТЫ ============ -->
+<section class="sec sec--debate" id="debate">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Дебаты: Бусыгин. Самозванец или спаситель?</h2>
+      <span class="time">13 мин</span>
+    </div>
+    <p class="lead">Две стороны, по пять минут на аргументы. Потом класс голосует. Весы покажут, чья позиция оказалась убедительнее. Главное правило: каждый довод нужно подтвердить эпизодом.</p>
+    <div class="debate">
+      <div class="side side--a">
+        <h3>Самозванец</h3>
+        <ul>
+          <li>Он вошёл в дом по выдуманному предлогу и принял чужую роль.</li>
+          <li>Ложь начал Сильва, но Бусыгин её не остановил.</li>
+          <li>Люди открылись тому, кого на самом деле не знали.</li>
+          <li>В конце ему всё равно пришлось признаться.</li>
+        </ul>
+        <div class="vote"><button class="btn btn--ink" data-vote="a" type="button">Голос «за»</button><button class="btn btn--small" data-unvote="a" type="button" aria-label="Убрать голос">−1</button><b id="vA">0</b></div>
+      </div>
+
+      <div class="scale" id="scaleWrap">
+        <svg viewBox="-20 0 340 250" role="img" aria-label="Весы мнений класса">
+          <rect x="144" y="62" width="12" height="150" rx="5" fill="#15153B"/>
+          <rect x="96" y="208" width="108" height="14" rx="7" fill="#15153B"/>
+          <g id="sBeam" class="s-beam"><line id="beamLine" x1="30" y1="60" x2="270" y2="60" stroke="#15153B" stroke-width="8" stroke-linecap="round"/></g>
+          <circle cx="150" cy="60" r="12" fill="#FFB02E" stroke="#15153B" stroke-width="4"/>
+          <g id="panL" class="s-pan"><line x1="0" y1="0" x2="-34" y2="64" stroke="#15153B" stroke-width="3"/><line x1="0" y1="0" x2="34" y2="64" stroke="#15153B" stroke-width="3"/><path d="M-46 64 H46 Q40 94 0 94 Q-40 94 -46 64Z" fill="#F2503B" stroke="#15153B" stroke-width="4"/></g>
+          <g id="panR" class="s-pan"><line x1="0" y1="0" x2="-34" y2="64" stroke="#15153B" stroke-width="3"/><line x1="0" y1="0" x2="34" y2="64" stroke="#15153B" stroke-width="3"/><path d="M-46 64 H46 Q40 94 0 94 Q-40 94 -46 64Z" fill="#12A37F" stroke="#15153B" stroke-width="4"/></g>
+        </svg>
+        <p class="scale__msg" id="scaleMsg">Весы ждут голосов.</p>
+        <button class="btn btn--small" id="voteReset" type="button">Обнулить</button>
+      </div>
+
+      <div class="side side--b">
+        <h3>Спаситель</h3>
+        <ul>
+          <li>Сарафанов одинокий человек, и «сын» много для него значит.</li>
+          <li>Бусыгин сомневается и мучается ложью, это не поведение циника.</li>
+          <li>Один из рецензентов называет его спасательным кругом для семьи.</li>
+          <li>Правду он открывает сам, когда мог бы промолчать.</li>
+        </ul>
+        <div class="vote"><button class="btn btn--ink" data-vote="b" type="button">Голос «за»</button><button class="btn btn--small" data-unvote="b" type="button" aria-label="Убрать голос">−1</button><b id="vB">0</b></div>
+      </div>
+    </div>
+    <div class="starters">
+      <h3>Как начать фразу</h3>
+      <p>«Я считаю, что… потому что в эпизоде…» &nbsp;/&nbsp; «Это сильный довод, но…» &nbsp;/&nbsp; «Можно ли назвать это ложью, если…»</p>
+    </div>
+    <aside class="tnote"><b>Для преподавателя.</b> Попросите проголосовать до дебатов и после: изменилось ли мнение? Это самый честный итог урока.</aside>
+  </div>
+</section>
+
+<!-- ============ СИНКВЕЙН ============ -->
+<section class="sec sec--cinq" id="cinquain">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Синквейн: пять строк о герое</h2>
+      <span class="time">7 мин</span>
+    </div>
+    <p class="lead">Выберите героя и заполните пять строк. Справа складывается открытка, которую можно скачать на память.</p>
+    <div class="cinq">
+      <form class="cinq__form" id="cinqForm" autocomplete="off">
+        <label>Тема (строка 1)
+          <select id="cqTopic">
+            <option>Бусыгин</option><option>Сильва</option><option>Сарафанов</option><option>Васенька</option><option>Нина</option><option>Дом</option><option>Ложь</option>
+          </select>
+        </label>
+        <label>Два прилагательных (строка 2)
+          <input id="cq2" maxlength="40" placeholder="например: растерянный, честный">
+        </label>
+        <label>Три глагола (строка 3)
+          <input id="cq3" maxlength="48" placeholder="например: сомневается, признаётся, остаётся">
+        </label>
+        <label>Фраза из четырёх слов (строка 4)
+          <input id="cq4" maxlength="60" placeholder="своя мысль о герое">
+        </label>
+        <label>Итог одним словом (строка 5)
+          <input id="cq5" maxlength="24" placeholder="например: сын">
+        </label>
+        <button class="btn btn--ink" id="cqDownload" type="button">Скачать открытку</button>
+      </form>
+      <div class="postcard" id="postcard" aria-live="polite">
+        <div class="postcard__stamp">Предместье</div>
+        <p class="pc1" id="pc1">Бусыгин</p>
+        <p class="pc2" id="pc2">…</p>
+        <p class="pc3" id="pc3">…</p>
+        <p class="pc4" id="pc4">…</p>
+        <p class="pc5" id="pc5">…</p>
+      </div>
+    </div>
+    <aside class="tnote"><b>Для преподавателя.</b> Три лучших синквейна можно зачитать вслух. Попросите авторов назвать эпизод, из которого родилась строка.</aside>
+  </div>
+</section>
+
+<!-- ============ ФИНАЛ ============ -->
+<section class="sec sec--finale" id="finale">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Финал: зажгите окна предместья</h2>
+      <span class="time">5 мин</span>
+    </div>
+    <p class="lead">Выберите, что вы забираете с урока, и зажгите окно этим цветом. Двадцать окон, и дом оживёт.</p>
+    <div class="moods" id="moods" role="radiogroup" aria-label="Что вы забираете с урока"></div>
+    <div class="house" id="house"></div>
+    <p class="house__count" id="houseCount" role="status" aria-live="polite">Горит 0 окон из 20</p>
+
+    <div class="finale__big" id="finaleBig" hidden>
+      <p>Все люди — братья</p>
+      <span>Так называется неоконченная оратория Сарафанова. Урок закончился, пьеса осталась.</span>
+    </div>
+
+    <figure class="frame frame--wide">
+      <img src="images/Suburb1.png" alt="Предместье ночью" loading="lazy">
+      <figcaption>Дом, в котором снова горит окно.</figcaption>
+    </figure>
+
+    <h3 class="sub sub--light">Домашнее задание на выбор</h3>
+    <div class="hw">
+      <article style="--c:#2FD3A3"><h4>Базовый уровень</h4><p>Чем Бусыгин отличается от Сильвы? Ответьте в 5–7 предложениях и подтвердите каждую мысль эпизодом из пьесы.</p></article>
+      <article style="--c:#FFB02E"><h4>Повышенный уровень</h4><p>Посмотрите фильм 1976 года или любую театральную постановку. Напишите отзыв: что режиссёр понял иначе, чем вы?</p></article>
+      <article style="--c:#FF7EB6"><h4>Творческий уровень</h4><p>Письмо Бусыгина Сарафанову через год. Что он решится сказать, о чём всё ещё будет молчать?</p></article>
+    </div>
+    <aside class="tnote"><b>Для преподавателя.</b> Закончите урок вопросом: «Когда обман может стать началом правды?» Дайте минуту тишины и не комментируйте ответы.</aside>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><strong>Старший сын</strong>, интерактивный открытый урок к пьесе А. Вампилова.</p>
+    <p class="foot__s">Сведения о пьесе и её постановках сверены по открытым источникам: fantlab.ru (история создания, издание 1970 года, фильм 1976 года, опера 1983 года), stuki-druki.com (список персонажей), culture.ru (жизнь автора, фильм с Е. Леоновым), altapress.ru и snob.ru (сюжет и трактовки в современных спектаклях).</p>
+    <p class="foot__s">Фотографии лежат в папке images. Описание каждого снимка см. в файле images/slovar_foto.txt.</p>
+  </div>
+</footer>
+
+<!-- ============ ТАЙМЕР УЧИТЕЛЯ ============ -->
+<aside class="clock" id="clock" aria-label="Таймер урока">
+  <button class="clock__toggle" id="clockToggle" type="button" aria-expanded="true" aria-label="Свернуть таймер">⏱</button>
+  <div class="clock__body" id="clockBody">
+    <output id="clockOut">05:00</output>
+    <div class="clock__btns">
+      <button type="button" id="clockMinus" aria-label="Минус минута">−1</button>
+      <button type="button" id="clockStart">Старт</button>
+      <button type="button" id="clockPlus" aria-label="Плюс минута">+1</button>
+      <button type="button" id="clockReset" aria-label="Сбросить">↺</button>
+    </div>
+  </div>
+</aside>
+
+<script src="js/app.js"></script>
+</body>
+</html>
